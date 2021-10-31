@@ -4,34 +4,38 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
+import com.rhtth.kotlinstudy.databinding.ActivityDataBindingExampleBinding
+import com.rhtth.kotlinstudy.databinding.ActivityMainBinding
 import com.rhtth.kotlinstudy.databinding.ResultProfileBinding
+
+data class UserName(
+    val firstName: String,
+    val lastName: String
+)
 
 class MainActivity : AppCompatActivity() {
 
-    //result_profile결합클래스 생성
-    private  lateinit var binding: ResultProfileBinding
+    /*//result_profile결합클래스 생성
+    private  lateinit var binding: ResultProfileBinding*/
+
+    private lateinit var binding: ActivityDataBindingExampleBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //xml의 레이아웃들을 메모리에 객체화
-        binding = ResultProfileBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_data_binding_example)
+        binding.user = UserName("정","성욱")
 
-        //button1을 누르면 button1 activitiy로 이동
-      binding.button1.setOnClickListener {
-          val intent = Intent(this,Button1Activity::class.java)
-          startActivity(intent)
-      }
-        //button2을 누르면 button2 activitiy로 이동
-        binding.button2.setOnClickListener {
-            val intent = Intent(this,Button2Activity::class.java)
+        binding.bbuton1.setOnClickListener {
+            val intent = Intent(this, Button1Activity::class.java)
             startActivity(intent)
+
         }
-        //button3을 누르면 button3 activitiy로 이동
-        binding.button3.setOnClickListener {
-            val intent = Intent(this,Button3Activity::class.java)
-            startActivity(intent)
-        }
+
+
+
     }
+
 }
+
